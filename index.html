@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="body-section">
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book./p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                        <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input type="text" id="first-class-quantity" class="inp-style inp-width" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button onclick="handleTicketChange('first-class' , false);" class="btn btn-default"><i
+                            class="fas fa-minus"></i></button>
+                    <button onclick="handleTicketChange('first-class' , true);" class="btn btn-default"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input type="text" id="economy-class-quantity" class="inp-style inp-width" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button onclick="handleTicketChange('economy-class', false);" class="btn btn-default"><i
+                            class="fas fa-minus"></i></button>
+                    <button onclick="handleTicketChange('economy-class', true);" class="btn btn-default"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="sub-total-amount">$00</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-amount">$00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id='total-amount'>$00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sent-info">
+                <p id="message">Ticket booking successful. Thanks for being with us.</p>
+            </div>
+            <button id="submit" class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <script>
+        //   document.getElementById('first-addItems').addEventListener('click', function () {
+        //     handleTicketChange(true);
+        // })
+
+        // document.getElementById('first-removeItems').addEventListener('click', function () {
+        //     handleTicketChange(false);
+        // })
+
+        function handleTicketChange(ticket, isIncrease) {
+            const ticketInput = document.getElementById(ticket + '-quantity');
+            const ticketInputNumber = parseInt(ticketInput.value);
+            let ticketInputNewNumber = ticketInputNumber;
+            if (isIncrease == true) {
+                ticketInputNewNumber = ticketInputNumber + 1;
+            }
+            if (isIncrease == false && ticketInputNumber > 0) {
+                ticketInputNewNumber = ticketInputNumber - 1;
+            }
+            // const firstInputNewNumber = firstInputNumber - 1;
+            ticketInput.value = ticketInputNewNumber;
+            // const firstClassTotalCost = firstInputNewNumber * 150;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const firstClassTicketInput = document.getElementById('first-class-quantity');
+            const firstClassTicketNumber = parseInt(firstClassTicketInput.value);
+
+            const economyClassTicketInput = document.getElementById('economy-class-quantity');
+            const economyClassTicketInputNumber = parseInt(economyClassTicketInput.value);
+            const subTotal = firstClassTicketNumber * 150 + economyClassTicketInputNumber * 100;
+            const subTotalAmount = document.getElementById('sub-total-amount').innerText = '$' + subTotal;
+            const tax = subTotal * 0.1;
+            const taxAmount = document.getElementById('tax-amount').innerText = '$' + tax;
+            const grandTotal = subTotal + tax;
+            document.getElementById('total-amount').innerText = '$' + grandTotal;
+        }
+
+        document.getElementById('submit').addEventListener('click', function () {
+        
+        document.getElementById('body-section').style.display = "none";
+        const sentMsg = document.getElementById('message').innerHTML;
+        document.write(sentMsg);
+            
+
+        })
+        // function handleEconomyTicketChange(isIncrease){
+        //     const economyInput = document.getElementById('economy-class-quantity');
+        //     const economyInputNumber = parseInt(economyInput.value);
+        //     let economyInputNewNumber = economyInputNumber;
+        //     if(isIncrease == true){
+        //         economyInputNewNumber = economyInputNumber + 1;
+        //     }
+        //     if(isIncrease == false && economyInputNumber > 0){
+        //         economyInputNewNumber =  economyInputNumber - 1;
+        //     }
+        //     // const economyInputNewNumber = economyInputNumber - 1;
+        //     economyInput.value = economyInputNewNumber;
+        //     const economyClassTotalCost = economyInputNewNumber * 100;
+        // }
+
+
+        // function handleTicketChange(isIncrease){
+        //     const firstInput = document.getElementById('first-class-quantity');
+        //     const firstInputNumber = parseInt(firstInput.value);
+        //     let firstInputNewNumber = firstInputNumber;
+        //     if(isIncrease == true){
+        //          firstInputNewNumber = firstInputNumber + 1;
+        //     }
+        //     if(isIncrease == false && firstInputNumber > 0){
+        //         firstInputNewNumber =  firstInputNumber - 1;
+        //     }
+        //     // const firstInputNewNumber = firstInputNumber - 1;
+        //     firstInput.value = firstInputNewNumber;
+        //     const firstClassTotalCost = firstInputNewNumber * 150;
+        // }
+        // document.getElementById('first-addItems').addEventListener('click', function () {
+        //     const firstInput = document.getElementById('first-class-quantity');
+        //     const firstInputNumber = parseInt(firstInput.value);
+        //     const firstInputNewNumber = firstInputNumber + 1;
+        //     firstInput.value = firstInputNewNumber;
+        //     const firstClassTotalCost = firstInputNewNumber * 150;
+        // })
+
+        // document.getElementById('first-removeItems').addEventListener('click', function () {
+        //     const firstInput = document.getElementById('first-class-quantity');
+        //     const firstInputNumber = parseInt(firstInput.value);
+        //     const firstInputNewNumber = firstInputNumber - 1;
+        //     firstInput.value = firstInputNewNumber;
+        //     const firstClassTotalCost = firstInputNewNumber * 150;
+        // })
+
+    </script>
+</body>
+
+</html>
